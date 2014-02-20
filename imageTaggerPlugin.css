@@ -1,0 +1,21 @@
+body
+{
+	background-color: grey;
+}
+
+#imageTaggerContainer
+{
+	margin-top: 60px;
+	margin-left: 80px;
+}
+
+.tagMarker
+{
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	margin-left: -7.5px;
+	margin-top: -7.5px;
+	color: white;
+	cursor: pointer;
+}
