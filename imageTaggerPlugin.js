@@ -1,7 +1,5 @@
 $(function($)
 {
-	var imageTaggerVariables = {};
-
 	$.fn.imageTagger = function(parameters, tags) {
 
 		/* Parameters */
