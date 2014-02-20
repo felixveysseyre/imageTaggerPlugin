@@ -70,8 +70,6 @@ $(function($)
 		$(this).data('imageViewerContainer').append(imageStructure);
 		$(this).data('image', $(this).data('imageViewerContainer').children('img'));
 
-		/** Tags **/
-
 		/* Logic */
 
 		/** Bind the mode selector **/
