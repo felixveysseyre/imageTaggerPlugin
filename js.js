@@ -1,6 +1,6 @@
 $(function()
 {
-	$('#test').imageTagger(
+	$('#test').imageViewer(
 		{
 			'activateTagging': false,
 			'image': 'image2.jpg',

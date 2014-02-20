@@ -1,6 +1,6 @@
 $(function($)
 {
-	$.fn.imageTagger = function(parameters, tags) {
+	$.fn.imageViewer = function(parameters, tags) {
 
 		/* Parameters */
 
