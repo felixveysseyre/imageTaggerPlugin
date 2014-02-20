@@ -7,6 +7,7 @@ $(function($)
 		/* Parameters */
 
 		var defaultParameters = {
+			'activateTagging': false,
 			'image': 'image.jpg',
 			'imageThumbnail': 'imageThumbnail.jpg',
 			'onTagAdded': null,
@@ -16,13 +17,20 @@ $(function($)
 
 		$(this).data('parameters', $.extend(defaultParameters, parameters));
 
-		/* Initialize structure and logic */
+		if($(this).data('parameters').activateTagging === true)
+		{
+			/* Initialize structure and logic */
 
-		$(this).createImageTaggerStructureAndLogic();
+			$(this).createImageTaggerStructureAndLogic();
 
-		/* Initialize tags */
+			/* Initialize tags */
 
-		$(this).initializeTags(tags);
+			$(this).initializeTags(tags);
+		}
+		else
+		{
+			$(this).createImageViewerStructureAndLogic();
+		}
 
 		/* Return */
 
@@ -77,6 +85,33 @@ $(function($)
 		$(this).initializeModeSelector();
 
 		/** Initialize first mode **/
+
+		$(this).activateImageZoom();
+	};
+
+	$.fn.createImageViewerStructureAndLogic = function() {
+
+		/* Structure */
+
+		$(this).html('');
+
+		/** Image viewer container **/
+
+		var imageViewerContainerStructure = '<div id="imageViewerContainer"></div>';
+		$(this).append(imageViewerContainerStructure);
+		$(this).data('imageViewerContainer', $(this).children('#imageViewerContainer'));
+
+		/** Image **/
+
+		var imageStructure = '<img src="#imageThumbnail#" data-zoom-image="#image#"/>';
+		imageStructure = imageStructure.replace('#imageThumbnail#', $(this).data('parameters').imageThumbnail);
+		imageStructure = imageStructure.replace('#image#', $(this).data('parameters').image);
+		$(this).data('imageViewerContainer').append(imageStructure);
+		$(this).data('image', $(this).data('imageViewerContainer').children('img'));
+
+		/* Logic */
+
+		/** Initialize zoom mode **/
 
 		$(this).activateImageZoom();
 	};

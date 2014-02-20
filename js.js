@@ -2,6 +2,7 @@ $(function()
 {
 	$('#test').imageTagger(
 		{
+			'activateTagging': false,
 			'image': 'image2.jpg',
 			'imageThumbnail': 'imageThumbnail2.jpg',
 			'onTagAdded': function(tag){console.log('added', tag)},
