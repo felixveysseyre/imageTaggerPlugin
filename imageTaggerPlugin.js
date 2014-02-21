@@ -1,7 +1,7 @@
 $(function($)
 {
-	$.fn.imageViewer = function(parameters, tags) {
-
+	$.fn.imageViewer = function(parameters, tags)
+	{
 		/* Parameters */
 
 		var defaultParameters = {
@@ -50,8 +50,8 @@ $(function($)
 		return this;
 	};
 
-	$.fn.createImageTaggerStructureAndLogic = function() {
-
+	$.fn.createImageTaggerStructureAndLogic = function()
+	{
 		/* Structure */
 
 		$(this).html('');
@@ -102,8 +102,8 @@ $(function($)
 		$(this).activateImageZoom();
 	};
 
-	$.fn.createImageViewerStructureAndLogic = function() {
-
+	$.fn.createImageViewerStructureAndLogic = function()
+	{
 		/* Structure */
 
 		$(this).html('');
@@ -129,10 +129,12 @@ $(function($)
 		$(this).activateImageZoom();
 	};
 
-	$.fn.initializeModeSelector = function() {
+	$.fn.initializeModeSelector = function()
+	{
 		var realThis = $(this);
 
-		$(this).data('modeSelector').change(function() {
+		$(this).data('modeSelector').change(function()
+		{
 			if($(this).val() === 'zoomMode') {
 				realThis.desactivateImageTagging();
 				realThis.activateImageZoom();
@@ -144,8 +146,10 @@ $(function($)
 		});
 	};
 
-	$.fn.activateImageZoom = function() {
-		$(this).data('image').elevateZoom( {
+	$.fn.activateImageZoom = function()
+	{
+		$(this).data('image').elevateZoom(
+		{
 			cursor: "crosshair",
 			//zoomType: "inner",
 			zoomWindowFadeIn: 250,
@@ -155,17 +159,20 @@ $(function($)
 		});
 	};
 
-	$.fn.desactivateImageZoom = function() {
+	$.fn.desactivateImageZoom = function()
+	{
 		$(this).data('image').removeData('elevateZoom');
 		$('.zoomContainer').remove();
 	};
 
-	$.fn.activateImageTagging = function() {
+	$.fn.activateImageTagging = function()
+	{
 		var realThis = $(this);
 
 		/* Create tag binding */
 
-		$(this).data('image').bind('click', function(e) {
+		$(this).data('image').bind('click', function(e)
+		{
 			var offset = $(this).offset();
 
 			var positionX = e.clientX - offset.left;
@@ -197,7 +204,8 @@ $(function($)
 		$(this).initializeClick();
 	};
 
-	$.fn.desactivateImageTagging = function() {
+	$.fn.desactivateImageTagging = function()
+	{
 		/* Remove tag binding */
 
 		$(this).data('image').unbind('click');
@@ -207,17 +215,18 @@ $(function($)
 		$(this).data('tagMarkers').hide();
 	};
 
-	$.fn.tagImage = function (ratioX, ratioY) {
+	$.fn.tagImage = function (ratioX, ratioY)
+	{
 		/* Add tag */
 
 		var tagId = $(this).getTagIdMax() + 1;
 
-		$(this).data('tags').push( {
+		$(this).data('tags').push(
+		{
 			'id': tagId,
 			'ratioX': ratioX,
 			'ratioY': ratioY
-			}
-		);
+		});
 
 		$(this).renderTags();
 		$(this).data('tagMarkers').show();
@@ -225,7 +234,8 @@ $(function($)
 		return tagId;
 	};
 
-	$.fn.renderTags = function() {
+	$.fn.renderTags = function()
+	{
 		var currentWidth = $(this).data('image').width();
 		var currentHeight = $(this).data('image').height();
 		var offset = $(this).data('image').offset();
@@ -255,7 +265,8 @@ $(function($)
 
 			/* Set his position */
 
-			$('#tag' + $(this).data('tags')[i].id).css({
+			$('#tag' + $(this).data('tags')[i].id).css(
+			{
 				'left': offset.left + $(this).data('tags')[i].ratioX * currentWidth,
 				'top': offset.top + $(this).data('tags')[i].ratioY * currentHeight
 			});
@@ -269,10 +280,12 @@ $(function($)
 		$(this).initializeClick();
 	};
 
-	$.fn.initializeClick = function() {
+	$.fn.initializeClick = function()
+	{
 		var realThis = $(this);
 
-		$(this).data('tagMarkers').bind('click', function() {
+		$(this).data('tagMarkers').bind('click', function()
+		{
 			var tagId = parseInt($(this).attr('id').substr(3));
 
 			/* Call back function */
@@ -283,12 +296,15 @@ $(function($)
 		});
 	};
 
-	$.fn.inializeTagDragAndDrop = function() {
+	$.fn.inializeTagDragAndDrop = function()
+	{
 		var realThis = $(this);
 
-		$(this).data('tagMarkers').draggable({
+		$(this).data('tagMarkers').draggable(
+		{
 			opacity: 0.50,
-			stop: function() {
+			stop: function()
+			{
 				var offset = realThis.data('image').offset();
 
 				var positionX = $(this).position().left - offset.left;
@@ -315,21 +331,23 @@ $(function($)
 		});
 	};
 
-	$.fn.initializeTags = function(tags) {
+	$.fn.initializeTags = function(tags)
+	{
 		$(this).data('tags', new Array());
 
 		for(var i in tags) {
-			$(this).data('tags').push( {
-					'id': tags[i].id,
-					'class': tags[i].class,
-					'ratioX': tags[i].ratioX,
-					'ratioY': tags[i].ratioY
-				}
-			);
+			$(this).data('tags').push(
+			{
+				'id': tags[i].id,
+				'class': tags[i].class,
+				'ratioX': tags[i].ratioX,
+				'ratioY': tags[i].ratioY
+			});
 		}
 	};
 
-	$.fn.getTagIdMax = function() {
+	$.fn.getTagIdMax = function()
+	{
 		if($(this).data('tags').length !== 0) {
 			var idMax = 0;
 
@@ -343,7 +361,8 @@ $(function($)
 		}
 	};
 
-	$.fn.getTag = function(id) {
+	$.fn.getTag = function(id)
+	{
 		for(var i in $(this).data('tags'))
 			if($(this).data('tags')[i].id === id)
 				return $(this).data('tags')[i];
@@ -351,7 +370,8 @@ $(function($)
 		return null;
 	};
 
-	$.fn.setTagPosition = function(id, ratioX, ratioY) {
+	$.fn.setTagPosition = function(id, ratioX, ratioY)
+	{
 		var tag = $(this).getTag(id);
 
 		tag.ratioX = ratioX;
