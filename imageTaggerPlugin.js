@@ -8,6 +8,7 @@ $(function($)
 			'activateTagging': false,
 			'image': 'image.jpg',
 			'imageThumbnail': 'imageThumbnail.jpg',
+			'tagMarkerStyle': 'position: absolute; height: 15px; width: 15px; margin-left: -7.5px; margin-top: -7.5px; color: white; cursor: pointer;',
 			'onTagAdded': null,
 			'onTagClicked': null,
 			'onTagMoved': null
@@ -15,8 +16,7 @@ $(function($)
 
 		$(this).data('parameters', $.extend(defaultParameters, parameters));
 
-		if($(this).data('parameters').activateTagging === true)
-		{
+		if($(this).data('parameters').activateTagging === true) {
 			/* Initialize structure and logic */
 
 			$(this).createImageTaggerStructureAndLogic();
@@ -25,8 +25,7 @@ $(function($)
 
 			$(this).initializeTags(tags);
 		}
-		else
-		{
+		else {
 			$(this).createImageViewerStructureAndLogic();
 		}
 
@@ -197,11 +196,10 @@ $(function($)
 
 		var tagId = $(this).getTagIdMax() + 1;
 
-		$(this).data('tags').push(
-			{
-				'id': tagId,
-				'ratioX': ratioX,
-				'ratioY': ratioY
+		$(this).data('tags').push( {
+			'id': tagId,
+			'ratioX': ratioX,
+			'ratioY': ratioY
 			}
 		);
 
@@ -216,19 +214,28 @@ $(function($)
 		var currentHeight = $(this).data('image').height();
 		var offset = $(this).data('image').offset();
 
-		var tagMarkerStructure = '<div id="#id#" class="tagMarker glyphicon glyphicon-map-marker"></div>';
-
 		/* Clean the tag markers containers */
 
 		$(this).data('imageTagMarkersContainer').html('');
 
 		/* Insert tag markers */
 
-		for(var i in $(this).data('tags'))
-		{
+		var tagMarkerStructure = '<div id="#id#" class="tagMarker glyphicon glyphicon-map-marker #class#" style="#style#"></div>';
+		tagMarkerStructure = tagMarkerStructure.replace('#style#', $(this).data('parameters').tagMarkerStyle);
+
+		for(var i in $(this).data('tags')) {
+			var tagMarkerStructureTemp = tagMarkerStructure.replace('#id#', 'tag' + $(this).data('tags')[i].id);
+
+			if($(this).data('tags')[i].class) {
+				tagMarkerStructureTemp = tagMarkerStructureTemp.replace('#class#', $(this).data('tags')[i].class);
+			}
+			else {
+				tagMarkerStructureTemp = tagMarkerStructureTemp.replace(' #class#', '');
+			}
+
 			/* Insert the object */
 
-			$(this).data('imageTagMarkersContainer').append(tagMarkerStructure.replace('#id#', 'tag' + $(this).data('tags')[i].id));
+			$(this).data('imageTagMarkersContainer').append(tagMarkerStructureTemp);
 
 			/* Set his position */
 
@@ -249,8 +256,7 @@ $(function($)
 	$.fn.initializeClick = function() {
 		var realThis = $(this);
 
-		$(this).data('tagMarkers').bind('click', function()
-		{
+		$(this).data('tagMarkers').bind('click', function() {
 			var tagId = parseInt($(this).attr('id').substr(3));
 
 			/* Call back function */
@@ -299,6 +305,7 @@ $(function($)
 		for(var i in tags) {
 			$(this).data('tags').push( {
 					'id': tags[i].id,
+					'class': tags[i].class,
 					'ratioX': tags[i].ratioX,
 					'ratioY': tags[i].ratioY
 				}
