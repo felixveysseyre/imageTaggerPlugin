@@ -69,7 +69,7 @@ $(function($)
 
 		/** Image **/
 
-		var imageStructure = '<img src="#imageThumbnail#" data-zoom-image="#image#"/>';
+		var imageStructure = '<img src="#imageThumbnail#" data-zoom-image="#image#" style="cursor: crosshair"/>';
 		imageStructure = imageStructure.replace('#imageThumbnail#', $(this).data('parameters').imageThumbnail);
 		imageStructure = imageStructure.replace('#image#', $(this).data('parameters').image);
 		$(this).data('imageViewerContainer').append(imageStructure);
