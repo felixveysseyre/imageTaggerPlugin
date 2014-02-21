@@ -6,8 +6,8 @@ $(function($)
 
 		var defaultParameters = {
 			'activateTagging': false,
-			'image': 'image.jpg',
-			'imageThumbnail': 'imageThumbnail.jpg',
+			'image': null,
+			'imageThumbnail': null,
 			'tagMarkerStyle': 'position: absolute; height: 15px; width: 15px; margin-left: -7.5px; margin-top: -7.5px; color: white; cursor: pointer;',
 			'onTagAdded': null,
 			'onTagClicked': null,
@@ -15,6 +15,20 @@ $(function($)
 		};
 
 		$(this).data('parameters', $.extend(defaultParameters, parameters));
+
+		/* Check images */
+
+		if($(this).data('parameters').image === null) {
+			console.log('No image for imageViewer plugin');
+			return null;
+		}
+		else {
+			if($(this).data('parameters').imageThumbnail === null) {
+				$(this).data('parameters').imageThumbnail = $(this).data('parameters').image;
+			}
+		}
+
+		/* initialization */
 
 		if($(this).data('parameters').activateTagging === true) {
 			/* Initialize structure and logic */
@@ -26,6 +40,8 @@ $(function($)
 			$(this).initializeTags(tags);
 		}
 		else {
+			/* Initialize structure and logic */
+
 			$(this).createImageViewerStructureAndLogic();
 		}
 
