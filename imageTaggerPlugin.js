@@ -372,9 +372,7 @@ $(function($)
 
 	$.fn.setTagPosition = function(id, ratioX, ratioY)
 	{
-		var tag = $(this).getTag(id);
-
-		tag.ratioX = ratioX;
-		tag.ratioY = ratioY;
+		$(this).getTag(id).ratioX = ratioX;
+		$(this).getTag(id).ratioY = ratioY;
 	};
 });
