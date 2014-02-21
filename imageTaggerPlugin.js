@@ -18,14 +18,14 @@ $(function($)
 
 		/* Check images */
 
-		if($(this).data('parameters').image === null) {
-			console.log('No image for imageViewer plugin');
-			return null;
-		}
-		else {
+		if($(this).data('parameters').image !== null) {
 			if($(this).data('parameters').imageThumbnail === null) {
 				$(this).data('parameters').imageThumbnail = $(this).data('parameters').image;
 			}
+		}
+		else {
+			console.log('No image for imageViewer plugin');
+			return null;
 		}
 
 		/* initialization */
